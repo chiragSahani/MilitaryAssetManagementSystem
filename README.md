@@ -57,8 +57,8 @@ A comprehensive, secure web application for managing military assets across mult
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd military-asset-management
+   git clone https://github.com/chiragSahani/MilitaryAssetManagementSystem.git
+   cd MilitaryAssetManagementSystem
    ```
 
 2. **Install dependencies**
@@ -99,19 +99,7 @@ A comprehensive, secure web application for managing military assets across mult
    - Backend API: http://localhost:3001
    - Health Check: http://localhost:3001/health
 
-## 👥 Demo Credentials
 
-### Admin Access
-- **Username**: `admin`
-- **Password**: `Demo123!`
-
-### Base Commander
-- **Username**: `cmd.liberty`
-- **Password**: `Demo123!`
-
-### Logistics Officer
-- **Username**: `log.liberty`
-- **Password**: `Demo123!`
 
 ## 📊 Database Schema
 
