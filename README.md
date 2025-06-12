@@ -69,8 +69,8 @@ All tables are relational with foreign keys and indexed for performance. Row Lev
 ### 1. Clone the Repo
 
 ```
-git clone https://github.com/your-org/military-asset-management.git
-cd military-asset-management
+git clone https://github.com/chiragSahani/MilitaryAssetManagementSystem.git
+cd MilitaryAssetManagementSystem
 ```
 
 ### 2. Setup Supabase Backend
