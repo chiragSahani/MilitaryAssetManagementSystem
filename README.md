@@ -156,9 +156,5 @@ Pull requests are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 Developed by Chirag Sahani
 
 
----
 
-*System Classification: FOR OFFICIAL USE ONLY. Unauthorized access is prohibited.*
-```
----
 
