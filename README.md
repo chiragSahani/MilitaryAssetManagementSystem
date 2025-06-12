@@ -1,275 +1,164 @@
-# Military Asset Management System
 
-A comprehensive, secure web application for managing military assets across multiple bases with role-based access control.
+# 🛡️ Military Asset Management System
+
+A secure, full-stack web application for managing the movement, assignment, and expenditure of critical military assets (weapons, vehicles, ammunition) across multiple bases. Built with **React.js** (frontend), **Supabase** (PostgreSQL, Auth, RLS backend), and deployed on modern cloud infrastructure. Features real-time dashboards, role-based access, audit logging, and a military-inspired UI.
+
+---
+
+## 🚀 Live Demo
+
+- **Full-Stack App:** [Live Demo](https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/9ceea7357ce48c7bacf8562af7a17d10/47e7d623-c12b-4f2c-8313-3e3db3d27069/index.html)
+- **Backend (Supabase):** [Supabase Dashboard](https://app.supabase.com/) *(requires credentials)*
+
+---
 
 ## 🎯 Features
 
-### Core Functionality
-- **Dashboard**: Real-time metrics, asset tracking, and activity monitoring
-- **Purchases**: Asset procurement management with approval workflows
-- **Transfers**: Inter-base asset transfers with tracking
-- **Assignments**: Personnel asset assignments and returns
-- **Expenditures**: Asset expenditure recording and justification
-- **Analytics**: Comprehensive reporting and data visualization
+- **Dashboard:** Real-time metrics (opening/closing balance, net movement, assignments, expenditures) with interactive charts and breakdowns.
+- **Purchases:** Record and view asset purchases per base, with filtering.
+- **Transfers:** Manage and track asset transfers between bases, with full history.
+- **Assignments & Expenditures:** Assign assets to personnel, record usage and returns.
+- **Role-Based Access Control:**  
+  - **Admin:** Full system access  
+  - **Base Commander:** Access limited to assigned base  
+  - **Logistics Officer:** Access to purchases and transfers only
+- **Audit Logging:** All actions are logged for compliance and traceability.
+- **Responsive Military UI:** Mobile-friendly, accessible, and visually themed for military use (greens, khaki, gold, strong contrast).
+- **Framer Motion Animations:** Smooth transitions and interactive popups.
+- **Charts & Visuals:** Asset flows and trends visualized with Chart.js.
+- **Accessible & Secure:** JWT Auth, RLS, and best practices for data protection.
 
-### Security & Access Control
-- **Role-Based Access Control (RBAC)**:
-  - **Admin**: Full system access
-  - **Base Commander**: Base-specific access with approval rights
-  - **Logistics Officer**: Limited to purchases and transfers
-- **JWT Authentication** with secure token management
-- **Comprehensive Audit Logging** for all API calls
-- **Rate Limiting** and security headers
+---
 
-### Technical Features
-- **Responsive Design**: Mobile-friendly interface
-- **Real-time Updates**: Live data synchronization
-- **Advanced Filtering**: Date ranges, asset types, status filters
-- **Export Capabilities**: Data export for reporting
-- **Interactive Charts**: Visual data representation
+## 🏗️ Tech Stack
 
-## 🛠️ Technology Stack
+- **Frontend:** React.js, React Router, Framer Motion, Chart.js, Styled Components/CSS Modules
+- **Backend:** Supabase (PostgreSQL, Auth, RLS, Edge Functions)
+- **Deployment:** AWS S3 (frontend), Supabase Cloud (backend)
+- **Other:** Docker (optional), Vite (dev server), ESLint/Prettier
 
-### Frontend
-- **React 18** with TypeScript
-- **Tailwind CSS** for styling
-- **React Router** for navigation
-- **Axios** for API communication
-- **Recharts** for data visualization
-- **Lucide React** for icons
+---
 
-### Backend
-- **Node.js** with Express
-- **PostgreSQL** database
-- **JWT** for authentication
-- **Winston** for logging
-- **Helmet** for security
-- **Rate limiting** for API protection
+## 🗄️ Database Schema
 
-## 🚀 Quick Start
+- `users` (id, email, role, base_id)
+- `roles` (id, name)
+- `bases` (id, name, location)
+- `assets` (id, type, description)
+- `purchases` (id, base_id, asset_id, quantity, date)
+- `transfers` (id, asset_id, from_base_id, to_base_id, quantity, timestamp)
+- `assignments` (id, asset_id, assigned_to, date)
+- `expenditures` (id, asset_id, base_id, quantity, date)
+- `logs` (id, action, user_id, table, data, timestamp)
 
-### Prerequisites
-- Node.js 18+ 
-- PostgreSQL 12+
-- npm or yarn
+All tables are relational with foreign keys and indexed for performance. Row Level Security (RLS) policies enforce access by user role and base.
 
-### Installation
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/chiragSahani/MilitaryAssetManagementSystem.git
-   cd MilitaryAssetManagementSystem
-   ```
+## 🔐 Authentication & Security
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+- **Supabase Auth:** JWT-based, with custom role claims.
+- **Row Level Security:** Policies restrict data access to authorized users.
+- **Audit Logging:** Every action is logged to the `logs` table.
+- **Input Validation & Sanitization:** Prevents SQL injection and XSS.
 
-3. **Database Setup**
-   ```bash
-   # Create PostgreSQL database
-   createdb military_assets
-   
-   # Run schema and seed scripts
-   psql -d military_assets -f server/database/schema.sql
-   psql -d military_assets -f server/database/seed.sql
-   ```
+---
 
-4. **Environment Configuration**
-   ```bash
-   # Copy environment template
-   cp .env.example .env
-   
-   # Edit .env with your database credentials
-   ```
+## 📦 Getting Started
 
-5. **Start the application**
-   ```bash
-   # Development mode (runs both frontend and backend)
-   npm run dev
-   
-   # Or run separately:
-   npm run client  # Frontend only
-   npm run server  # Backend only
-   ```
+### 1. Clone the Repo
 
-6. **Access the application**
-   - Frontend: http://localhost:5173
-   - Backend API: http://localhost:3001
-   - Health Check: http://localhost:3001/health
-
-
-
-## 📊 Database Schema
-
-### Core Tables
-- **users**: User accounts with role-based access
-- **bases**: Military base information
-- **asset_types**: Asset categories and specifications
-- **assets**: Current inventory tracking
-- **purchases**: Procurement records
-- **transfers**: Inter-base asset movements
-- **assignments**: Personnel asset assignments
-- **expenditures**: Asset usage and consumption
-- **personnel**: Military personnel records
-- **api_logs**: Comprehensive audit trail
-
-### Key Relationships
-- Users belong to bases and have specific roles
-- Assets are tracked by type and location
-- All transactions maintain full audit trails
-- Role-based permissions control data access
-
-## 🔐 Security Features
-
-### Authentication & Authorization
-- JWT-based authentication with secure token storage
-- Role-based access control with granular permissions
-- Base-level data isolation for non-admin users
-- Session management with automatic token refresh
-
-### Data Protection
-- SQL injection prevention with parameterized queries
-- XSS protection with input sanitization
-- CORS configuration for secure cross-origin requests
-- Rate limiting to prevent abuse
-- Comprehensive audit logging
-
-### API Security
-- Helmet.js for security headers
-- Request validation and sanitization
-- Error handling without information leakage
-- Secure password hashing (production ready)
-
-## 📈 API Endpoints
-
-### Authentication
-- `POST /api/auth/login` - User authentication
-- `GET /api/auth/profile` - Get current user profile
-- `POST /api/auth/logout` - User logout
-
-### Dashboard
-- `GET /api/dashboard/metrics` - Dashboard metrics with filters
-- `GET /api/dashboard/activities` - Recent activity feed
-
-### Asset Management
-- `GET /api/purchases` - List purchases with pagination
-- `POST /api/purchases` - Create new purchase
-- `PATCH /api/purchases/:id/status` - Update purchase status
-- `GET /api/transfers` - List transfers
-- `POST /api/transfers` - Create new transfer
-- `GET /api/assignments` - List assignments
-- `POST /api/assignments` - Create new assignment
-
-### Reference Data
-- `GET /api/assets/types` - Asset types and categories
-- `GET /api/assets/bases` - Available bases
-- `GET /api/assets/inventory` - Current inventory levels
-- `GET /api/personnel` - Personnel records
-
-## 🔧 Configuration
-
-### Environment Variables
-```env
-# Database
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=military_assets
-DB_USER=postgres
-DB_PASSWORD=your_password
-
-# Security
-JWT_SECRET=your-super-secret-jwt-key
-
-# Application
-NODE_ENV=development
-PORT=3001
-FRONTEND_URL=http://localhost:5173
+```
+git clone https://github.com/your-org/military-asset-management.git
+cd military-asset-management
 ```
 
-### Database Configuration
-- Connection pooling for optimal performance
-- SSL support for production environments
-- Automatic connection retry and error handling
-- Query optimization with proper indexing
+### 2. Setup Supabase Backend
 
-## 📱 Responsive Design
+- Create a [Supabase](https://supabase.com/) project.
+- Run the SQL schema in `supabase/schema.sql`.
+- Set up RLS policies as per `supabase/policies.sql`.
+- Add sample data using `supabase/seed.sql`.
+- Configure Auth roles in Supabase dashboard.
 
-The application is fully responsive and optimized for:
-- **Desktop**: Full-featured dashboard and management interface
-- **Tablet**: Optimized layouts for medium screens
-- **Mobile**: Touch-friendly interface for field operations
+### 3. Configure Frontend
 
-## 🚀 Deployment
+- Copy `.env.example` to `.env` and add your Supabase credentials.
+- Install dependencies:
 
-### Production Deployment Options
-
-#### Docker Deployment
-```bash
-# Build and run with Docker Compose
-docker-compose up -d
+```
+npm install
 ```
 
-#### Cloud Deployment (Heroku/Render)
-1. Set up PostgreSQL database
-2. Configure environment variables
-3. Deploy application code
-4. Run database migrations
+- Start the local dev server:
 
-#### Traditional Server Deployment
-1. Set up Node.js and PostgreSQL
-2. Clone repository and install dependencies
-3. Configure environment variables
-4. Set up process manager (PM2)
-5. Configure reverse proxy (Nginx)
+```
+npm run dev
+```
 
-### Production Considerations
-- Use environment-specific JWT secrets
-- Enable SSL/TLS encryption
-- Set up database backups
-- Configure monitoring and logging
-- Implement CI/CD pipelines
+### 4. Deploy
 
-## 🔍 Monitoring & Logging
+- **Frontend:** Deploy to AWS S3, Render, or Vercel.
+- **Backend:** Supabase is fully managed in the cloud.
 
-### Application Logging
-- Winston-based structured logging
-- API call logging with request/response details
-- Error tracking and stack traces
-- Performance metrics and timing
+---
 
-### Audit Trail
-- Complete transaction history
-- User action tracking
-- Data modification logs
-- Security event monitoring
+## 👤 Demo Users
+
+| Username      | Role             | Password  |
+|---------------|------------------|-----------|
+| `admin`       | Admin            | demo123   |
+| `commander`   | Base Commander   | demo123   |
+| `logistics`   | Logistics Officer| demo123   |
+
+---
+
+## 📊 Screenshots
+
+
+
+
+
+---
+
+## 🛠️ Development Notes
+
+- **Styling:** Uses a military color palette with high-contrast text for visibility.
+- **Animations:** Framer Motion for modals, transitions, and interactive feedback.
+- **Charts:** Chart.js for visualizing asset movement and balances.
+- **Accessibility:** ARIA labels, keyboard navigation, and high-contrast support.
+
+---
+
+## 📈 Roadmap
+
+- [ ] Mobile app (React Native/PWA)
+- [ ] Predictive analytics for asset usage
+- [ ] Barcode/QR code scanning for inventory
+- [ ] Advanced permissions and approval workflows
+
+---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+Pull requests are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[MIT](LICENSE)
 
-## 🆘 Support
+---
 
-For support and questions:
-- Check the documentation
-- Review the API endpoints
-- Examine the database schema
-- Test with provided demo credentials
+## 🏅 Credits
 
-## 🔮 Future Enhancements
+Developed by Chirag Sahani
 
-- Real-time notifications
-- Advanced analytics and reporting
-- Mobile application
-- Integration with external systems
-- Automated inventory management
-- Predictive maintenance scheduling
+
+---
+
+*System Classification: FOR OFFICIAL USE ONLY. Unauthorized access is prohibited.*
+```
+---
+
